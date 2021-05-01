@@ -1,0 +1,67 @@
+<h1>All Plahers</h1>
+
+<a href="/players/new">Add a Player</a>
+
+<table>
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>AB</th>
+        <th>H</th>
+        <th>BB</th>
+        <th>K</th>
+        <th>R</th>
+        <th>AVG</th>
+        <th>OBP</th>
+        <th>SLG</th>
+        <th>1B</th>
+        <th>2B</th>
+        <th>3B</th>
+        <th>HR</th>
+    </tr>
+    <% for (let player of players) { %>
+        <tr>
+            <td><%= player.firstName %></td>
+        </tr>
+        <tr>
+            <td><%= player.lastName %></td>
+        </tr>
+        <tr>
+            <td><%= player.atBats %></td>
+        </tr>
+        <tr>
+            <td><%= player.hits %></td>
+        </tr>
+        <tr>
+            <td><%= player.walks %></td>
+        </tr>
+        <tr>
+            <td><%= player.strikeouts %></td>
+        </tr>
+        <tr>
+            <td><%= player.runs %></td>
+        </tr>
+        <tr>
+            <td><%= player.battingAverage %></td>
+        </tr>
+        <tr>
+            <td><%= player.onBasePercentage %></td>
+        </tr>
+        <tr>
+            <td><%= player.sluggingPercentage %></td>
+        </tr>
+        <tr>
+            <td><%= player.single %></td>
+        </tr>
+        <tr>
+            <td><%= player.double %></td>
+        </tr>
+        <tr>
+            <td><%= player.triple %></td>
+        </tr>
+        <tr>
+            <td><%= player.homeRun %></td>
+        </tr>
+    <% } %>
+</table>
+

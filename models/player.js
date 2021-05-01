@@ -25,6 +25,11 @@ const PlayerSchema = new Schema({
 		required : true,
 		default  : 0
 	},
+	runs               : {
+		type     : Number,
+		required : true,
+		default  : 0
+	},
 	strikeouts         : {
 		type     : Number,
 		required : true,
