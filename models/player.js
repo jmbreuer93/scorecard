@@ -69,4 +69,25 @@ const PlayerSchema = new Schema({
 	}
 });
 
+async function calculateBA (player) {
+	const { atBats, hits } = Player;
+	player.battingAverage = hits / atBats;
+}
+
+async function calculateOBP (player) {
+	const { atBats, hits, walks } = Player;
+	player.onBasePercentage = (hits + walks) / (atBats + walks);
+}
+
+async function caluclateSLG (player) {
+	const { single, double, triple, homeRun, atBats } = Player;
+	player.sluggingPercentage = (single + double * 2 + triple * 3 + homeRun * 4) / atBats;
+}
+
+PlayerSchema.pre('save', async function (player) {
+	await calculateBA(player);
+	await calculateOBP(player);
+	await caluclateSLG(player);
+});
+
 module.exports = mongoose.model('Player', PlayerSchema);
