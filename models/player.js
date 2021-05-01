@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const Float = require('mongoose-float').loadType(mongoose, 3);
 
 const PlayerSchema = new Schema({
 	firstName          : {
@@ -20,6 +21,11 @@ const PlayerSchema = new Schema({
 		required : true,
 		default  : 0
 	},
+	rbi                : {
+		type     : Number,
+		required : true,
+		default  : 0
+	},
 	walks              : {
 		type     : Number,
 		required : true,
@@ -31,49 +37,51 @@ const PlayerSchema = new Schema({
 		default  : 0
 	},
 	strikeouts         : {
-		type     : Number,
-		required : true,
-		default  : 0
+		type    : Number,
+		default : 0
 	},
 	single             : {
-		type     : Number,
-		required : true,
-		default  : 0
+		type    : Number,
+		default : 0
 	},
 	double             : {
-		type     : Number,
-		required : true,
-		default  : 0
+		type    : Number,
+		default : 0
 	},
 	triple             : {
-		type     : Number,
-		required : true,
-		default  : 0
+		type    : Number,
+		default : 0
 	},
 	homeRun            : {
-		type     : Number,
-		required : true,
-		default  : 0
+		type    : Number,
+		default : 0
 	},
 	battingAverage     : {
-		type     : Number,
+		type     : Float,
 		required : true,
 		default  : function () {
 			return this.hits / this.atBats;
 		}
 	},
 	onBasePercentage   : {
-		type     : Number,
+		type     : Float,
 		required : true,
 		default  : function () {
-			return (this.hits + this.walks) / (this.atBats / this.walks);
+			return (this.hits + this.walks) / (this.atBats + this.walks);
 		}
 	},
 	sluggingPercentage : {
-		type     : Number,
+		type     : Float,
 		required : true,
 		default  : function () {
 			return (this.single + this.double * 2 + this.triple * 3 + this.homeRun * 4) / this.atBats;
+		}
+	},
+	ops                : {
+		type     : Float,
+		required : true,
+		default  : function () {
+			return this.onBasePercentage + this.sluggingPercentage;
 		}
 	}
 });

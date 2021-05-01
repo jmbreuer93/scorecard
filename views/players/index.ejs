@@ -6,35 +6,39 @@
     <tr>
         <th>First Name</th>
         <th>Last Name</th>
-        <th>AB</th>
-        <th>H</th>
-        <th>BB</th>
-        <th>K</th>
-        <th>R</th>
         <th>AVG</th>
         <th>OBP</th>
         <th>SLG</th>
+        <th>OPS</th>
+        <th>AB</th>
+        <th>R</th>
+        <th>H</th>
+        <th>RBI</th>
         <th>1B</th>
         <th>2B</th>
         <th>3B</th>
         <th>HR</th>
+        <th>K</th>
+        <th>BB</th>
     </tr>
     <% for (let player of players) { %>
         <tr>
             <td><%= player.firstName %></td>
             <td><%= player.lastName %></td>
-            <td><%= player.atBats %></td>
-            <td><%= player.hits %></td>
-            <td><%= player.walks %></td>
-            <td><%= player.strikeouts %></td>
-            <td><%= player.runs %></td>
             <td><%= player.battingAverage %></td>
             <td><%= player.onBasePercentage %></td>  
             <td><%= player.sluggingPercentage %></td>
+            <td><%= player.ops %></td>
+            <td><%= player.atBats %></td>
+            <td><%= player.runs %></td>
+            <td><%= player.hits %></td>
+            <td><%= player.rbi %></td>
             <td><%= player.single %></td>
             <td><%= player.double %></td>
             <td><%= player.triple %></td>
             <td><%= player.homeRun %></td>
+            <td><%= player.strikeouts %></td>
+            <td><%= player.walks %></td>
         </tr>
     <% } %>
 </table>
