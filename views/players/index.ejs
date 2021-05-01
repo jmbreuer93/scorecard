@@ -22,44 +22,18 @@
     <% for (let player of players) { %>
         <tr>
             <td><%= player.firstName %></td>
-        </tr>
-        <tr>
             <td><%= player.lastName %></td>
-        </tr>
-        <tr>
             <td><%= player.atBats %></td>
-        </tr>
-        <tr>
             <td><%= player.hits %></td>
-        </tr>
-        <tr>
             <td><%= player.walks %></td>
-        </tr>
-        <tr>
             <td><%= player.strikeouts %></td>
-        </tr>
-        <tr>
             <td><%= player.runs %></td>
-        </tr>
-        <tr>
             <td><%= player.battingAverage %></td>
-        </tr>
-        <tr>
-            <td><%= player.onBasePercentage %></td>
-        </tr>
-        <tr>
+            <td><%= player.onBasePercentage %></td>  
             <td><%= player.sluggingPercentage %></td>
-        </tr>
-        <tr>
             <td><%= player.single %></td>
-        </tr>
-        <tr>
             <td><%= player.double %></td>
-        </tr>
-        <tr>
             <td><%= player.triple %></td>
-        </tr>
-        <tr>
             <td><%= player.homeRun %></td>
         </tr>
     <% } %>

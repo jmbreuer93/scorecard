@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const PlayerSchema = new Schema({
-	fistName           : {
+	firstName          : {
 		type     : String,
 		required : true
 	},
@@ -56,31 +56,31 @@ const PlayerSchema = new Schema({
 		default  : 0
 	},
 	battingAverage     : {
-		type     : Number,
-		required : true
+		type : Number
+		// required : true
 	},
 	onBasePercentage   : {
-		type     : Number,
-		required : true
+		type : Number
+		// required : true
 	},
 	sluggingPercentage : {
-		type     : Number,
-		required : true
+		type : Number
+		// required : true
 	}
 });
 
 async function calculateBA (player) {
-	const { atBats, hits } = Player;
+	const { atBats, hits } = player;
 	player.battingAverage = hits / atBats;
 }
 
 async function calculateOBP (player) {
-	const { atBats, hits, walks } = Player;
+	const { atBats, hits, walks } = player;
 	player.onBasePercentage = (hits + walks) / (atBats + walks);
 }
 
 async function caluclateSLG (player) {
-	const { single, double, triple, homeRun, atBats } = Player;
+	const { single, double, triple, homeRun, atBats } = player;
 	player.sluggingPercentage = (single + double * 2 + triple * 3 + homeRun * 4) / atBats;
 }
 

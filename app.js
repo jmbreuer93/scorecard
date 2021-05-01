@@ -9,7 +9,7 @@ const ejsMate = require('ejs-mate');
 const methodOverride = require('method-override');
 const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/scorecard';
 const Player = require('./models/player');
-const { calculateBA, caluculateOBP, calculateSLG } = require('./middleware');
+const bodyParser = require('body-parser');
 
 mongoose.connect(dbUrl, {
 	useNewUrlParser    : true,
@@ -33,6 +33,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/players', async (req, res) => {
 	const players = await Player.find({});
