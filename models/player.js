@@ -57,18 +57,15 @@ const PlayerSchema = new Schema({
 	},
 	battingAverage     : {
 		type     : Number,
-		required : true,
-		default  : 0
+		required : true
 	},
 	onBasePercentage   : {
 		type     : Number,
-		required : true,
-		default  : 0
+		required : true
 	},
 	sluggingPercentage : {
 		type     : Number,
-		required : true,
-		default  : 0
+		required : true
 	}
 });
 
