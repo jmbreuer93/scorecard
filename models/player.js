@@ -58,32 +58,43 @@ const PlayerSchema = new Schema({
 	},
 	battingAverage     : {
 		type     : Float,
-		required : true,
 		default  : function () {
-			return this.hits / this.atBats;
-		}
+			if (this.atBats) {
+				return this.hits / this.atBats;
+			}
+			return 0;
+		},
+		required : true
 	},
 	onBasePercentage   : {
 		type     : Float,
 		required : true,
 		default  : function () {
-			return (this.hits + this.walks) / (this.atBats + this.walks);
+			if (this.atBats || this.walks) {
+				return (this.hits + this.walks) / (this.atBats + this.walks);
+			}
+			return 0;
 		}
 	},
 	sluggingPercentage : {
 		type     : Float,
 		required : true,
 		default  : function () {
-			return (this.single + this.double * 2 + this.triple * 3 + this.homeRun * 4) / this.atBats;
+			if (this.atBats) {
+				return (this.single + this.double * 2 + this.triple * 3 + this.homeRun * 4) / this.atBats;
+			}
+			return 0;
 		}
 	},
 	ops                : {
 		type     : Float,
 		required : true,
 		default  : function () {
-			return this.onBasePercentage + this.sluggingPercentage;
+			if (this.atBats) {
+				return this.onBasePercentage + this.sluggingPercentage;
+			}
+			return 0;
 		}
 	}
 });
-
 module.exports = mongoose.model('Player', PlayerSchema);

@@ -40,6 +40,19 @@ app.get('/players', async (req, res) => {
 	res.render('players/index', { players });
 });
 
+app.get('/players/new', (req, res) => {
+	res.render('players/new');
+});
+
+app.post('/players', async (req, res) => {
+	// console.log(req.body);
+	const player = new Player(req.body);
+	const { firstName, lastName } = player;
+	await player.save();
+	console.log(player);
+	res.redirect('/players');
+});
+
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
 	console.log(`Serving on port ${port}`);
