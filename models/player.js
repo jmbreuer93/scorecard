@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const Float = require('mongoose-float').loadType(mongoose, 3);
+const Team = require('./team');
 
 const PlayerSchema = new Schema({
 	firstName          : {
@@ -95,6 +96,11 @@ const PlayerSchema = new Schema({
 			}
 			return 0;
 		}
+	},
+	team               : {
+		type     : Schema.Types.ObjectId,
+		ref      : 'Team',
+		required : true
 	}
 });
 module.exports = mongoose.model('Player', PlayerSchema);
