@@ -53,6 +53,11 @@ app.post('/players', async (req, res) => {
 	res.redirect('/players');
 });
 
+app.get('/teams', async (req, res) => {
+	const teams = await Team.find({});
+	res.render('teams/index', { teams });
+});
+
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
 	console.log(`Serving on port ${port}`);
