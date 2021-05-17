@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const Player = require('./player');
+const Game = require('./game');
 
 const TeamSchema = new Schema({
 	name    : {
@@ -26,7 +27,13 @@ const TeamSchema = new Schema({
 		type     : Number,
 		required : true,
 		default  : 0
-	}
+	},
+	games   : [
+		{
+			type : Schema.Types.ObjectId,
+			ref  : 'Game'
+		}
+	]
 });
 
 module.exports = module.model('Team', TeamSchema);
