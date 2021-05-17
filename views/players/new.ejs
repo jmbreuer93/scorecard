@@ -6,8 +6,16 @@
         <input type="text" id="firstName" name="firstName" placeholder="First Name">
     </div>
     <div>
-        <label for="lastName">Lastw Name</label>
+        <label for="lastName">Last Name</label>
         <input type="text" id="lastName" name="lastName" placeholder="Last Name">
+    </div>
+    <div>
+        <label for="teamName">Team Name</label>
+        <input type="select" id="teamName" name="teamName" placeholder="Team Name">
+        <option value="">Please select a team</option>
+        <% for(let team of teams) { %>
+            <option value="<%= team._id %>"><%= team.teamName %></option>
+        <% } %>
     </div>
     <button>Submit</button>
 </form>

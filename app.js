@@ -47,8 +47,10 @@ app.get('/players/new', (req, res) => {
 });
 
 app.post('/players', async (req, res) => {
-	const player = new Player(req.body);
-	const { firstName, lastName } = player;
+	const teams = await Team.find({});
+	// req.body.teams = teams;
+	const player = new Player(req.body, { teams });
+	const { firstName, lastName, team } = player;
 	await player.save();
 	res.redirect('/players');
 });
