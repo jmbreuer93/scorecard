@@ -5,7 +5,7 @@ const Player = require('./player');
 const Game = require('./game');
 
 const TeamSchema = new Schema({
-	name              : {
+	teamName          : {
 		type     : String,
 		required : true
 	},
@@ -36,15 +36,14 @@ const TeamSchema = new Schema({
 		}
 	],
 	winningPercentage : {
-		type     : Float,
-		default  : function () {
-			if (this.games) {
+		type    : Float,
+		default : function () {
+			if (this.games.length) {
 				return this.wins / this.games.length;
 			}
-			return 0;
-		},
-		required : true
+			return 0.0;
+		}
 	}
 });
 
-module.exports = module.model('Team', TeamSchema);
+module.exports = mongoose.model('Team', TeamSchema);
