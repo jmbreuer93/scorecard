@@ -9,6 +9,8 @@ const ejsMate = require('ejs-mate');
 const methodOverride = require('method-override');
 const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/scorecard';
 const Player = require('./models/player');
+const Team = require('./models/team');
+const Game = require('./models/game');
 const bodyParser = require('body-parser');
 
 mongoose.connect(dbUrl, {
@@ -45,17 +47,26 @@ app.get('/players/new', (req, res) => {
 });
 
 app.post('/players', async (req, res) => {
-	// console.log(req.body);
 	const player = new Player(req.body);
 	const { firstName, lastName } = player;
 	await player.save();
-	console.log(player);
 	res.redirect('/players');
 });
 
 app.get('/teams', async (req, res) => {
 	const teams = await Team.find({});
 	res.render('teams/index', { teams });
+});
+
+app.get('/teams/new', (req, res) => {
+	res.render('teams/new');
+});
+
+app.post('/teams', async (req, res) => {
+	const team = new Team(req.body);
+	const { name, manager } = team;
+	await team.save();
+	res.redirect('/teams');
 });
 
 const port = process.env.PORT || 3000;
