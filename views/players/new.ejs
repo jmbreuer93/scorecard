@@ -11,11 +11,12 @@
     </div>
     <div>
         <label for="teamName">Team Name</label>
-        <input type="select" id="teamName" name="teamName" placeholder="Team Name">
-        <option value="">Please select a team</option>
-        <% for(let team of teams) { %>
-            <option value="<%= team._id %>"><%= team.teamName %></option>
-        <% } %>
+        <select name="teamName" id="teamName">
+            <option value="">Please select a team</option>
+            <% for(let team of teams) { %>
+                <option value="<%= team._id %>"><%= team.teamName %></option>
+            <% } %>
+        </select>
     </div>
     <button>Submit</button>
 </form>

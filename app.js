@@ -42,14 +42,12 @@ app.get('/players', async (req, res) => {
 	res.render('players/index', { players });
 });
 
-app.get('/players/new', (req, res) => {
-	res.render('players/new');
+app.get('/players/new', async (req, res) => {
+	const teams = await Team.find({});
+	res.render('players/new', { teams });
 });
 
 app.post('/players', async (req, res) => {
-	const teams = await Team.find({});
-	// req.body.teams = teams;
-	const player = new Player(req.body, { teams });
 	const { firstName, lastName, team } = player;
 	await player.save();
 	res.redirect('/players');
