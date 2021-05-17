@@ -1,0 +1,23 @@
+<h1>All Teams</h1>
+
+<a href="/teams/new">Add a Team</a>
+
+<table>
+    <tr>
+        <th>Team Name</th>
+        <th>Manager</th>
+        <th>Wins</th>
+        <th>Losses</th>
+        <th>Winning Percentage</th>
+    </tr>
+    <% for (let team of teams) { %>
+        <tr>
+            <td><%= team.name %></td>
+            <td><%= team.manager %></td>
+            <td><%= team.wins %></td>
+            <td><%= team.losses %></td>  
+            <td><%= team.winningPercentage %></td>
+        </tr>
+    <% } %>
+</table>
+
