@@ -5,12 +5,14 @@ const Team = require('./team');
 
 const GameSchema = new Schema({
 	homeTeam : {
-		type : Schema.Types.ObjectId,
-		ref  : 'Team'
+		type     : Schema.Types.ObjectId,
+		ref      : 'Team',
+		required : true
 	},
 	awayTeam : {
-		type : Schema.Types.ObjectId,
-		ref  : 'Team'
+		type     : Schema.Types.ObjectId,
+		ref      : 'Team',
+		required : true
 	},
 	date     : {
 		type     : Date,
