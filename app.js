@@ -37,6 +37,7 @@ app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Player Routes
 app.get('/players', async (req, res) => {
 	const players = await Player.find({});
 	res.render('players/index', { players });
@@ -48,11 +49,13 @@ app.get('/players/new', async (req, res) => {
 });
 
 app.post('/players', async (req, res) => {
-	const { firstName, lastName, team } = player;
+	const player = new Player(req.body);
+	const { firstName, lastName, teamName } = player;
 	await player.save();
 	res.redirect('/players');
 });
 
+// Team Routes
 app.get('/teams', async (req, res) => {
 	const teams = await Team.find({});
 	res.render('teams/index', { teams });
@@ -67,6 +70,12 @@ app.post('/teams', async (req, res) => {
 	const { name, manager } = team;
 	await team.save();
 	res.redirect('/teams');
+});
+
+app.get('/teams/:id', async (req, res) => {
+	const team = await Team.findById(req.params.id);
+	const players = await Player.find({ teamName: team });
+	res.render('teams/show', { team, players });
 });
 
 const port = process.env.PORT || 3000;

@@ -97,7 +97,7 @@ const PlayerSchema = new Schema({
 			return 0;
 		}
 	},
-	team               : {
+	teamName           : {
 		type     : Schema.Types.ObjectId,
 		ref      : 'Team',
 		required : true

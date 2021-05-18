@@ -1,0 +1,6 @@
+<h1><%= team.teamName %></h1>
+<ul>
+    <% for(let player of players) { %>
+        <li><%= `${player.firstName} ${player.lastName}` %></li>
+    <% } %>
+</ul>
