@@ -72,6 +72,13 @@ app.post('/teams', async (req, res) => {
 	res.redirect('/teams');
 });
 
+app.get('/teams/:id/games/new', async (req, res) => {
+	const teams = await Team.find({});
+	const team = await Team.find({ _id: req.params.id }, { _id: 0, teamName: 1 });
+	const teamName = team[0].teamName;
+	res.render('games/new', { teamName, teams });
+});
+
 app.get('/teams/:id', async (req, res) => {
 	const team = await Team.findById(req.params.id);
 	const games = await Game.find({ $or: [ { homeTeam: team }, { awayTeam: team } ] });

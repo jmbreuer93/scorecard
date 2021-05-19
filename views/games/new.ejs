@@ -1,1 +1,8 @@
 <h1>New Game</h1>
+<h2><%= teamName %></h2>
+
+<ul>
+    <% for(let team of teams) { %>
+        <li><%= team.teamName %></li>
+    <% } %>
+</ul>
