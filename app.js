@@ -74,8 +74,15 @@ app.post('/teams', async (req, res) => {
 
 app.get('/teams/:id', async (req, res) => {
 	const team = await Team.findById(req.params.id);
+	const games = await Game.find({ $or: [ { homeTeam: team }, { awayTeam: team } ] });
 	const players = await Player.find({ teamName: team });
-	res.render('teams/show', { team, players });
+	res.render('teams/show', { team, players, games });
+});
+
+// Game Routes
+app.get('/games', async (req, res) => {
+	const games = await Game.find({});
+	res.render('games/index', { games });
 });
 
 const port = process.env.PORT || 3000;
