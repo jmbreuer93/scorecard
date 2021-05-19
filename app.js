@@ -75,8 +75,9 @@ app.post('/teams', async (req, res) => {
 app.get('/teams/:id/games/new', async (req, res) => {
 	const teams = await Team.find({});
 	const team = await Team.find({ _id: req.params.id }, { _id: 0, teamName: 1 });
+	const players = await Player.find({ teamName: req.params.id });
 	const teamName = team[0].teamName;
-	res.render('games/new', { teamName, teams });
+	res.render('games/new', { teamName, teams, players });
 });
 
 app.get('/teams/:id', async (req, res) => {
