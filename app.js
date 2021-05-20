@@ -11,6 +11,7 @@ const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/scorecard';
 const Player = require('./models/player');
 const Team = require('./models/team');
 const Game = require('./models/game');
+const { getPlayers, getTeams, getTeam, homeTeamName, awayTeamName } = require('./middleware');
 const bodyParser = require('body-parser');
 
 mongoose.connect(dbUrl, {
@@ -38,14 +39,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Player Routes
-app.get('/players', async (req, res) => {
-	const players = await Player.find({});
-	res.render('players/index', { players });
+app.get('/players', getPlayers, async (req, res) => {
+	res.render('players/index');
 });
 
-app.get('/players/new', async (req, res) => {
-	const teams = await Team.find({});
-	res.render('players/new', { teams });
+app.get('/players/new', getTeams, async (req, res) => {
+	res.render('players/new');
 });
 
 app.post('/players', async (req, res) => {
@@ -56,9 +55,8 @@ app.post('/players', async (req, res) => {
 });
 
 // Team Routes
-app.get('/teams', async (req, res) => {
-	const teams = await Team.find({});
-	res.render('teams/index', { teams });
+app.get('/teams', getTeams, async (req, res) => {
+	res.render('teams/index');
 });
 
 app.get('/teams/new', (req, res) => {
@@ -72,16 +70,14 @@ app.post('/teams', async (req, res) => {
 	res.redirect('/teams');
 });
 
-app.get('/teams/:id/games/new', async (req, res) => {
-	const teams = await Team.find({});
+app.get('/teams/:id/games/new', getTeams, async (req, res) => {
 	const team = await Team.find({ _id: req.params.id }, { _id: 1, teamName: 1 });
 	const players = await Player.find({ teamName: req.params.id });
 	const teamName = team[0].teamName;
-	res.render('games/new', { teamName, team, teams, players });
+	res.render('games/new', { teamName, team, players });
 });
 
 app.post('/teams/:id/games', async (req, res) => {
-	// console.log(req.params);
 	const team = await Team.findById(req.params.id);
 	const game = new Game(req.body);
 	await game.save();
