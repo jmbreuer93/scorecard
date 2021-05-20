@@ -13,8 +13,8 @@
     <% for(let game of games) { %>
         <tr>
             <td><%= game._id %></td>
-            <td><%= game.homeTeam %></td>
-            <td><%= game.awayTeam %></td>
+            <td><%= game.homeTeam.teamName %></td>
+            <td><%= game.awayTeam.teamName %></td>
             <td><%= game.date %></td>
             <td><%= game.time %></td>
         </tr>

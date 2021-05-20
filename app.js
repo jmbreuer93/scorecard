@@ -74,10 +74,24 @@ app.post('/teams', async (req, res) => {
 
 app.get('/teams/:id/games/new', async (req, res) => {
 	const teams = await Team.find({});
-	const team = await Team.find({ _id: req.params.id }, { _id: 0, teamName: 1 });
+	const team = await Team.find({ _id: req.params.id }, { _id: 1, teamName: 1 });
 	const players = await Player.find({ teamName: req.params.id });
 	const teamName = team[0].teamName;
-	res.render('games/new', { teamName, teams, players });
+	res.render('games/new', { teamName, team, teams, players });
+});
+
+// app.get('/teams/:id/games', async (req, res) => {
+// 	const team = await Team.find({ _id: req.params.id }, { _id: 0, teamName: 1 });
+// 	console.log(req.body);
+// 	res.send('MADE IT!');
+// });
+
+app.post('/teams/:id/games', async (req, res) => {
+	// console.log(req.params);
+	const team = await Team.findById(req.params.id);
+	const game = new Game(req.body);
+	await game.save();
+	res.redirect(`/teams/${team._id}`);
 });
 
 app.get('/teams/:id', async (req, res) => {
@@ -88,10 +102,10 @@ app.get('/teams/:id', async (req, res) => {
 });
 
 // Game Routes
-app.get('/games', async (req, res) => {
-	const games = await Game.find({});
-	res.render('games/index', { games });
-});
+// app.get('/games', async (req, res) => {
+// 	const games = await Game.find({});
+// 	res.render('games/index', { games });
+// });
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
