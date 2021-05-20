@@ -1,4 +1,5 @@
 <h1>New Game for <%= teamName %></h1>
+<% console.log(players) %>
 
 <form action="/teams/<%= team[0]._id %>/games" method="POST">
     <label for="awayTeam">Visitor</label>
@@ -8,17 +9,44 @@
             <option value="<%= team._id %>"><%= team.teamName %></option>
         <% } %>
     </select>
-    <label for="homeTeam">Home</label>
-    <select name="homeTeam" id="homeTeam">
-        <option value="">Select a Team</option>
-        <% for(let team of teams) { %>
-            <option value="<%= team._id %>"><%= team.teamName %></option>
-        <% } %>
-    </select>
-    <label for="date">Date</label>
-    <input type="date" name="date" id="date">
-    <label for="time">Time</label>
-    <input type="time" name="time" id="time">
+    <div>
+        <label for="homeTeam">Home</label>
+        <select name="homeTeam" id="homeTeam">
+            <option value="">Select a Team</option>
+            <% for(let team of teams) { %>
+                <option value="<%= team._id %>"><%= team.teamName %></option>
+            <% } %>
+        </select>
+        <label for="date">Date</label>
+        <input type="date" name="date" id="date">
+        <label for="time">Time</label>
+        <input type="time" name="time" id="time">
+    </div>
+    <% for(let player of players) { %>
+        <p><%= player.firstName %> <%= player.lastName %></p>
+        <div>
+            <label for="atBats">At Bats</label>
+            <input type="number" name="atBats" id="atBats">
+            <label for="runs">Runs</label>
+            <input type="number" name="runs" id="runs">
+            <label for="hits">hits</label>
+            <input type="number" name="hits" id="hits">
+            <label for="rbi">RBI</label>
+            <input type="number" name="rbi" id="rbi">
+            <label for="single">Singles</label>
+            <input type="number" name="single" id="single">
+            <label for="double">Doubles</label>
+            <input type="number" name="double" id="double">
+            <label for="triple">Triples</label>
+            <input type="text" name="triple" id="triple">
+            <label for="hr">Home Runs</label>
+            <input type="number" name="hr" id="hr">
+            <label for="strikeout">Strikeouts</label>
+            <input type="number" name="strikeout" id="strikeout">
+            <label for="walk">Walk</label>
+            <input type="number" name="walk" id="walk">
+        </div>
+    <% } %>
     <button>Submit</button>
 </form>
 
