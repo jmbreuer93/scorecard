@@ -80,12 +80,6 @@ app.get('/teams/:id/games/new', async (req, res) => {
 	res.render('games/new', { teamName, team, teams, players });
 });
 
-// app.get('/teams/:id/games', async (req, res) => {
-// 	const team = await Team.find({ _id: req.params.id }, { _id: 0, teamName: 1 });
-// 	console.log(req.body);
-// 	res.send('MADE IT!');
-// });
-
 app.post('/teams/:id/games', async (req, res) => {
 	// console.log(req.params);
 	const team = await Team.findById(req.params.id);
@@ -100,12 +94,6 @@ app.get('/teams/:id', async (req, res) => {
 	const players = await Player.find({ teamName: team });
 	res.render('teams/show', { team, players, games });
 });
-
-// Game Routes
-// app.get('/games', async (req, res) => {
-// 	const games = await Game.find({});
-// 	res.render('games/index', { games });
-// });
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
