@@ -81,23 +81,25 @@ app.post('/teams/:id/games', async (req, res) => {
 	const numPlayers = req.body.player.length;
 	for (let i = 0; i < numPlayers; i++) {
 		const player = req.body.player[i];
-		const foundPlayer = await Player.findById(player);
-		foundPlayer.atBats += req.body.atBats[i];
-		foundPlayer.runs += req.body.runs[i];
-		foundPlayer.hits += req.body.hits[i];
-		foundPlayer.rbi += req.body.rbi[i];
-		foundPlayer.single += req.body.single[i];
-		foundPlayer.double += req.body.double[i];
-		foundPlayer.triple += req.body.triple[i];
-		foundPlayer.homeRun += req.body.homeRun[i];
-		foundPlayer.strikeouts += req.body.strikeout[i];
-		foundPlayer.walks += req.body.walk[i];
-		console.log(foundPlayer);
+		const foundPlayer = await Player.findByIdAndUpdate(player, {
+			$inc : {
+				atBats     : req.body.atBats[i],
+				runs       : req.body.runs[i],
+				hits       : req.body.hits[i],
+				rbi        : req.body.rbi[i],
+				single     : req.body.single[i],
+				double     : req.body.double[i],
+				triple     : req.body.triple[i],
+				homeRun    : req.body.homeRun[i],
+				strikeouts : req.body.strikeout[i],
+				walks      : req.body.walk[i]
+			}
+		});
+		await foundPlayer.save();
 	}
-	const team = await Team.findById(req.params.id);
 	const game = new Game(req.body);
 	await game.save();
-	res.redirect(`/teams/${team._id}`);
+	res.redirect(`/teams/${req.params.id}`);
 });
 
 app.get('/teams/:id', getTeam, async (req, res) => {
