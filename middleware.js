@@ -17,14 +17,13 @@ module.exports.getTeams = async (req, res, next) => {
 
 module.exports.getTeam = async (req, res, next) => {
 	const team = await Team.findById(req.params.id);
+	res.locals.team = team;
 	next();
 };
 
 module.exports.homeTeamName = async (req, res, next) => {
 	const game = req.game;
-	console.log(game);
 	const team = await Game.findById({ _id: req.game }, { _id: 0, homeTeam: 1, awayTeam: 1 });
-	console.log(team);
 	const homeTeamName = team.teamName;
 	res.locals.homeTeamName = homeTeamName;
 	next();

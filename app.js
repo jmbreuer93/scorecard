@@ -78,17 +78,32 @@ app.get('/teams/:id/games/new', getTeams, async (req, res) => {
 });
 
 app.post('/teams/:id/games', async (req, res) => {
+	const numPlayers = req.body.player.length;
+	for (let i = 0; i < numPlayers; i++) {
+		const player = req.body.player[i];
+		const foundPlayer = await Player.findById(player);
+		foundPlayer.atBats += req.body.atBats[i];
+		foundPlayer.runs += req.body.runs[i];
+		foundPlayer.hits += req.body.hits[i];
+		foundPlayer.rbi += req.body.rbi[i];
+		foundPlayer.single += req.body.single[i];
+		foundPlayer.double += req.body.double[i];
+		foundPlayer.triple += req.body.triple[i];
+		foundPlayer.homeRun += req.body.homeRun[i];
+		foundPlayer.strikeouts += req.body.strikeout[i];
+		foundPlayer.walks += req.body.walk[i];
+		console.log(foundPlayer);
+	}
 	const team = await Team.findById(req.params.id);
 	const game = new Game(req.body);
 	await game.save();
 	res.redirect(`/teams/${team._id}`);
 });
 
-app.get('/teams/:id', async (req, res) => {
-	const team = await Team.findById(req.params.id);
-	const games = await Game.find({ $or: [ { homeTeam: team }, { awayTeam: team } ] });
-	const players = await Player.find({ teamName: team });
-	res.render('teams/show', { team, players, games });
+app.get('/teams/:id', getTeam, async (req, res) => {
+	const games = await Game.find({ $or: [ { homeTeam: res.locals.team }, { awayTeam: res.locals.team } ] });
+	const players = await Player.find({ teamName: res.locals.team }).sort({ battingAverage: 'desc' });
+	res.render('teams/show', { players, games });
 });
 
 const port = process.env.PORT || 3000;
