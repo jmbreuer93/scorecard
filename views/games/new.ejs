@@ -1,5 +1,4 @@
 <h1>New Game for <%= teamName %></h1>
-<% console.log(players) %>
 
 <form action="/teams/<%= team[0]._id %>/games" method="POST">
     <label for="awayTeam">Visitor</label>
@@ -23,8 +22,15 @@
         <input type="time" name="time" id="time">
     </div>
     <% for(let player of players) { %>
-        <p><%= player.firstName %> <%= player.lastName %></p>
         <div>
+            <label for="player">Player</label>
+            <select name="player" id="player">
+                <option value="">Choose an Player</option>
+                <% for(let player of players) { %>
+                    <option value="<%= player._id %>"><%= player.firstName %> <%= player.lastName%></option>
+                <% } %>
+            </select>
+
             <label for="atBats">At Bats</label>
             <input type="number" name="atBats" id="atBats">
             <label for="runs">Runs</label>
@@ -39,8 +45,8 @@
             <input type="number" name="double" id="double">
             <label for="triple">Triples</label>
             <input type="text" name="triple" id="triple">
-            <label for="hr">Home Runs</label>
-            <input type="number" name="hr" id="hr">
+            <label for="homeRun">Home Runs</label>
+            <input type="number" name="homeRun" id="homeRun">
             <label for="strikeout">Strikeouts</label>
             <input type="number" name="strikeout" id="strikeout">
             <label for="walk">Walk</label>
