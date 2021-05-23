@@ -12,7 +12,7 @@ const Player = require('./models/player');
 const Team = require('./models/team');
 const Game = require('./models/game');
 const { getPlayers, getTeams, getTeam, homeTeamName, awayTeamName } = require('./middleware');
-const bodyParser = require('body-parser');
+const { calculateAvg, calculateSLG, calculateOBP, calculateOPS } = require('./helpers');
 
 mongoose.connect(dbUrl, {
 	useNewUrlParser    : true,
@@ -36,7 +36,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.urlencoded({ extended: true }));
 
 // Player Routes
 app.get('/players', getPlayers, async (req, res) => {
@@ -80,6 +79,7 @@ app.get('/teams/:id/games/new', getTeams, async (req, res) => {
 app.post('/teams/:id/games', async (req, res) => {
 	const numPlayers = req.body.player.length;
 	for (let i = 0; i < numPlayers; i++) {
+		console.log('FOR LOOP');
 		const player = req.body.player[i];
 		const foundPlayer = await Player.findByIdAndUpdate(player, {
 			$inc : {
@@ -96,7 +96,13 @@ app.post('/teams/:id/games', async (req, res) => {
 			}
 		});
 		await foundPlayer.save();
+		await calculateAvg(player);
+		await calculateOBP(player);
+		await calculateOPS(player);
+		await calculateSLG(player);
+		await foundPlayer.save();
 	}
+
 	const game = new Game(req.body);
 	await game.save();
 	res.redirect(`/teams/${req.params.id}`);
