@@ -79,7 +79,6 @@ app.get('/teams/:id/games/new', getTeams, async (req, res) => {
 app.post('/teams/:id/games', async (req, res) => {
 	const numPlayers = req.body.player.length;
 	for (let i = 0; i < numPlayers; i++) {
-		console.log('FOR LOOP');
 		const player = req.body.player[i];
 		const foundPlayer = await Player.findByIdAndUpdate(player, {
 			$inc : {
