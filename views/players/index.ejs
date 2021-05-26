@@ -1,7 +1,6 @@
+
 <h1>All Players</h1>
-
 <a href="/players/new">Add a Player</a>
-
 <table>
     <tr>
         <th>First Name</th>
@@ -19,6 +18,7 @@
         <th>2B</th>
         <th>3B</th>
         <th>HR</th>
+        <th>XBH</th>
         <th>K</th>
         <th>BB</th>
     </tr>
@@ -39,9 +39,9 @@
             <td><%= player.double %></td>
             <td><%= player.triple %></td>
             <td><%= player.homeRun %></td>
+            <td><%= player.xbh %></td>
             <td><%= player.strikeouts %></td>
             <td><%= player.walks %></td>
         </tr>
     <% } %>
 </table>
-

@@ -44,3 +44,13 @@ module.exports.calculateOPS = async (playerID) => {
 	}
 	return 0;
 };
+
+module.exports.calculateXBH = async (playerID) => {
+	const player = await Player.findById(playerID);
+	if (player.atBats) {
+		const xbh = player.double + player.triple + player.homeRun;
+		await player.updateOne({ xbh: xbh });
+		await player.save();
+		return;
+	}
+};

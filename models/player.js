@@ -101,6 +101,16 @@ const PlayerSchema = new Schema({
 		type     : Schema.Types.ObjectId,
 		ref      : 'Team',
 		required : true
+	},
+	xbh                : {
+		type     : Float,
+		required : true,
+		default  : function () {
+			if (this.atBats) {
+				return this.double + this.triple + this.homeRun;
+			}
+			return 0;
+		}
 	}
 });
 module.exports = mongoose.model('Player', PlayerSchema);

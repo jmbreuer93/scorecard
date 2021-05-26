@@ -4,7 +4,7 @@ const Team = require('./models/team');
 const Game = require('./models/game');
 
 module.exports.getPlayers = async (req, res, next) => {
-	const players = await Player.find({});
+	const players = await Player.find({}).sort({ battingAverage: 'desc' });
 	res.locals.players = players;
 	next();
 };
