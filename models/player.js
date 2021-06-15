@@ -61,7 +61,7 @@ const PlayerSchema = new Schema({
 		type     : Float,
 		default  : function () {
 			if (this.atBats) {
-				return this.hits / this.atBats;
+				return this.hits / this.atBats.toFixed(3);
 			}
 			return 0;
 		},
@@ -72,7 +72,7 @@ const PlayerSchema = new Schema({
 		required : true,
 		default  : function () {
 			if (this.atBats || this.walks) {
-				return (this.hits + this.walks) / (this.atBats + this.walks);
+				return ((this.hits + this.walks) / (this.atBats + this.walks)).toFixed(3);
 			}
 			return 0;
 		}
@@ -82,7 +82,7 @@ const PlayerSchema = new Schema({
 		required : true,
 		default  : function () {
 			if (this.atBats) {
-				return (this.single + this.double * 2 + this.triple * 3 + this.homeRun * 4) / this.atBats;
+				return ((this.single + this.double * 2 + this.triple * 3 + this.homeRun * 4) / this.atBats).toFixed(3);
 			}
 			return 0;
 		}
@@ -92,7 +92,7 @@ const PlayerSchema = new Schema({
 		required : true,
 		default  : function () {
 			if (this.atBats) {
-				return this.onBasePercentage + this.sluggingPercentage;
+				return (this.onBasePercentage + this.sluggingPercentage).toFixed(3);
 			}
 			return 0;
 		}

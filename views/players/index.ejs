@@ -27,10 +27,10 @@
             <td><%= player.firstName %></td>
             <td><%= player.lastName %></td>
             <td><%= player.team %></td>
-            <td><%= player.battingAverage %></td>
-            <td><%= player.onBasePercentage %></td>  
-            <td><%= player.sluggingPercentage %></td>
-            <td><%= player.ops %></td>
+            <td><%= player.battingAverage.toFixed(3) %></td>
+            <td><%= player.onBasePercentage.toFixed(3) %></td>  
+            <td><%= player.sluggingPercentage.toFixed(3) %></td>
+            <td><%= player.ops.toFixed(3) %></td>
             <td><%= player.atBats %></td>
             <td><%= player.runs %></td>
             <td><%= player.hits %></td>
@@ -45,3 +45,4 @@
         </tr>
     <% } %>
 </table>
+ 
