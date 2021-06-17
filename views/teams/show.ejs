@@ -62,34 +62,13 @@
             <td><%= player.walks %></td>
         </tr>
     <% } %>
-    <%
-        let teamTotals = {
-            atBats     : 0,
-            runs       : 0,
-            hits       : 0,
-            rbi        : 0,
-            single     : 0,
-            double     : 0,
-            triple     : 0,
-            homeRun    : 0,
-            xbh        : 0,
-            strikeouts : 0,
-            walks      : 0
-        };
-
-        players.forEach(player => Object.keys(teamTotals).forEach(key => teamTotals[key] += player[key]))
-        teamTotals.avg = teamTotals.hits / teamTotals.atBats;
-        teamTotals.obp = (teamTotals.hits + teamTotals.walks) / (teamTotals.atBats + teamTotals.walks);
-        teamTotals.slg = (teamTotals.single * 1 + teamTotals.double * 2 + teamTotals.triple * 3 + teamTotals.homeRun * 4) / teamTotals.atBats;
-        teamTotals.ops = teamTotals.obp + teamTotals.slg;
-    %>
     <tr>
         <td></td>
         <td><strong>Totals</strong></td>
-        <td><strong><%= teamTotals.avg.toFixed(3) %></strong></td>
-        <td><strong><%= teamTotals.obp.toFixed(3) %></strong></td>
-        <td><strong><%= teamTotals.slg.toFixed(3) %></strong></td>
-        <td><strong><%= teamTotals.ops.toFixed(3) %></strong></td>
+        <td><strong><%= teamTotals.avg %></strong></td>
+        <td><strong><%= teamTotals.obp %></strong></td>
+        <td><strong><%= teamTotals.slg %></strong></td>
+        <td><strong><%= teamTotals.ops %></strong></td>
         <td><strong><%= teamTotals.atBats %></strong></td>
         <td><strong><%= teamTotals.runs %></strong></td>
         <td><strong><%= teamTotals.hits %></strong></td>

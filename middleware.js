@@ -37,3 +37,28 @@ module.exports.awayTeamName = async (req, res, next) => {
 	});
 	next();
 };
+
+module.exports.teamTotals = async (req, res, next) => {
+	const teamTotals = {
+		atBats     : 0,
+		runs       : 0,
+		hits       : 0,
+		rbi        : 0,
+		single     : 0,
+		double     : 0,
+		triple     : 0,
+		homeRun    : 0,
+		xbh        : 0,
+		strikeouts : 0,
+		walks      : 0
+	};
+	const players = await Player.find({ teamName: req.params.id });
+	players.forEach((player) => Object.keys(teamTotals).forEach((key) => (teamTotals[key] += player[key])));
+	teamTotals.avg = (teamTotals.hits / teamTotals.atBats).toFixed(3);
+	teamTotals.obp = ((teamTotals.hits + teamTotals.walks) / (teamTotals.atBats + teamTotals.walks)).toFixed(3);
+	teamTotals.slg = ((teamTotals.single * 1 + teamTotals.double * 2 + teamTotals.triple * 3 + teamTotals.homeRun * 4) /
+		teamTotals.atBats).toFixed(3);
+	teamTotals.ops = teamTotals.obp + teamTotals.slg;
+	res.locals.teamTotals = teamTotals;
+	next();
+};
