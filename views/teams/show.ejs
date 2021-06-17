@@ -10,13 +10,13 @@
         <th>Date</th>
         <th>Time</th>
     </tr>
-    <% for(let game of games) { %>
+    <% for(i = 0; i < games.length; i++) { %>
         <tr>
-            <td><%= game._id %></td>
-            <td><%= game.homeTeamName %></td>
-            <td><%= game.awayTeamName %></td>
-            <td><%= game.date %></td>
-            <td><%= game.time %></td>
+            <td><%= games[i]._id %></td>
+            <td><%= homeTeamNames[i] %></td>
+            <td><%= awayTeamNames[i] %></td>
+            <td><%= games[i].date %></td>
+            <td><%= games[i].time %></td>
         </tr>
     <% } %>
 </table>

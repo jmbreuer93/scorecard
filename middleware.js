@@ -21,20 +21,27 @@ module.exports.getTeam = async (req, res, next) => {
 	next();
 };
 
-module.exports.homeTeamName = async (req, res, next) => {
-	const game = req.game;
-	const team = await Game.findById({ _id: req.game }, { _id: 0, homeTeam: 1, awayTeam: 1 });
-	const homeTeamName = team.teamName;
-	res.locals.homeTeamName = homeTeamName;
+module.exports.homeTeamNames = async (req, res, next) => {
+	const games = await Game.find({ $or: [ { homeTeam: req.params.id }, { awayTeam: req.params.id } ] });
+	const homeTeamNames = [];
+	for (let game of games) {
+		const homeTeamID = await Team.findById(game.homeTeam);
+		const homeTeam = homeTeamID.populate().teamName;
+		homeTeamNames.push(homeTeam);
+	}
+	res.locals.homeTeamNames = homeTeamNames;
 	next();
 };
 
-module.exports.awayTeamName = async (req, res, next) => {
-	const team = await Team.findById(req.params.id);
-	const games = await Game.find({ $or: [ { homeTeam: team }, { awayTeam: team } ] });
-	await games.map(async (game) => {
-		const awayTeamName = game.awayTeam.teamName;
-	});
+module.exports.awayTeamNames = async (req, res, next) => {
+	const games = await Game.find({ $or: [ { homeTeam: req.params.id }, { awayTeam: req.params.id } ] });
+	const awayTeamNames = [];
+	for (let game of games) {
+		const awayTeamID = await Team.findById(game.awayTeam);
+		const awayTeam = awayTeamID.populate().teamName;
+		awayTeamNames.push(awayTeam);
+	}
+	res.locals.awayTeamNames = awayTeamNames;
 	next();
 };
 

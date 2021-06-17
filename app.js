@@ -11,7 +11,7 @@ const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/scorecard';
 const Player = require('./models/player');
 const Team = require('./models/team');
 const Game = require('./models/game');
-const { getPlayers, getTeams, getTeam, homeTeamName, awayTeamName, teamTotals } = require('./middleware');
+const { getPlayers, getTeams, getTeam, homeTeamNames, awayTeamNames, teamTotals } = require('./middleware');
 const { calculateAvg, calculateSLG, calculateOBP, calculateOPS } = require('./helpers');
 
 mongoose.connect(dbUrl, {
@@ -131,7 +131,7 @@ app.post('/teams/:id/games', async (req, res) => {
 	res.redirect(`/teams/${req.params.id}`);
 });
 
-app.get('/teams/:id', getTeam, teamTotals, async (req, res) => {
+app.get('/teams/:id', getTeam, homeTeamNames, awayTeamNames, teamTotals, async (req, res) => {
 	const games = await Game.find({ $or: [ { homeTeam: res.locals.team }, { awayTeam: res.locals.team } ] });
 	const players = await Player.find({ teamName: res.locals.team }).sort({ battingAverage: 'desc' });
 	res.render('teams/show', { players, games });
