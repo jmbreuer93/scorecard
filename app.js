@@ -7,11 +7,20 @@ const path = require('path');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
 const methodOverride = require('method-override');
+const moment = require('moment');
 const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/scorecard';
 const Player = require('./models/player');
 const Team = require('./models/team');
 const Game = require('./models/game');
-const { getPlayers, getTeams, getTeam, homeTeamNames, awayTeamNames, teamTotals } = require('./middleware');
+const {
+	getPlayers,
+	getTeams,
+	getTeam,
+	homeTeamNames,
+	awayTeamNames,
+	teamTotals,
+	formatDates
+} = require('./middleware');
 const { calculateAvg, calculateSLG, calculateOBP, calculateOPS, calculateXBH } = require('./helpers');
 
 mongoose.connect(dbUrl, {
@@ -118,7 +127,7 @@ app.post('/teams/:id/games', async (req, res) => {
 	res.redirect(`/teams/${req.params.id}`);
 });
 
-app.get('/teams/:id', getTeam, homeTeamNames, awayTeamNames, teamTotals, async (req, res) => {
+app.get('/teams/:id', getTeam, homeTeamNames, awayTeamNames, teamTotals, formatDates, async (req, res) => {
 	const games = await Game.find({ $or: [ { homeTeam: res.locals.team }, { awayTeam: res.locals.team } ] });
 	const players = await Player.find({ teamName: res.locals.team }).sort({ battingAverage: 'desc' });
 	res.render('teams/show', { players, games });

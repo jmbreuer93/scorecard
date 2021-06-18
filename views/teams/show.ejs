@@ -12,7 +12,7 @@
     </tr>
     <% for(i = 0; i < games.length; i++) { %>
         <tr>
-            <td><%= games[i].date.toISOString() %></td>
+            <td><%= formattedDates[i] %></td>
             <td><%= games[i].time %></td>
             <td><%= homeTeamNames[i] %></td>
             <td><%= awayTeamNames[i] %></td>

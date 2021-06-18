@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const moment = require('moment');
 const Player = require('./models/player');
 const Team = require('./models/team');
 const Game = require('./models/game');
@@ -42,6 +43,16 @@ module.exports.awayTeamNames = async (req, res, next) => {
 		awayTeamNames.push(awayTeam);
 	}
 	res.locals.awayTeamNames = awayTeamNames;
+	next();
+};
+
+module.exports.formatDates = async (req, res, next) => {
+	const games = await Game.find({ $or: [ { homeTeam: req.params.id }, { awayTeam: req.params.id } ] });
+	const formattedDates = [];
+	for (game of games) {
+		formattedDates.push(moment(game.date).format('MMM Do YY'));
+	}
+	res.locals.formattedDates = formattedDates;
 	next();
 };
 
