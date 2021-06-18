@@ -8,13 +8,15 @@
         <th>Time</th>
         <th>Home Team</th>
         <th>Away Team</th>
+        <th>Score</th>
     </tr>
     <% for(i = 0; i < games.length; i++) { %>
         <tr>
-            <td><%= games[i].date.toDateString() %></td>
+            <td><%= games[i].date.toISOString() %></td>
             <td><%= games[i].time %></td>
             <td><%= homeTeamNames[i] %></td>
             <td><%= awayTeamNames[i] %></td>
+            <td><%= games[i].homeScore %> - <%= games[i].awayScore %></td>
         </tr>
     <% } %>
 </table>

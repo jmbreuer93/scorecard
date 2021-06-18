@@ -12,7 +12,7 @@ const Player = require('./models/player');
 const Team = require('./models/team');
 const Game = require('./models/game');
 const { getPlayers, getTeams, getTeam, homeTeamNames, awayTeamNames, teamTotals } = require('./middleware');
-const { calculateAvg, calculateSLG, calculateOBP, calculateOPS } = require('./helpers');
+const { calculateAvg, calculateSLG, calculateOBP, calculateOPS, calculateXBH } = require('./helpers');
 
 mongoose.connect(dbUrl, {
 	useNewUrlParser    : true,
@@ -77,54 +77,41 @@ app.get('/teams/:id/games/new', getTeams, async (req, res) => {
 });
 
 app.post('/teams/:id/games', async (req, res) => {
+	console.log(req.body);
 	try {
 		// If form submits data for more than one player, req.body.player is an array
 		const numPlayers = req.body.player.length;
 		for (let i = 0; i < numPlayers; i++) {
-			const player = req.body.player[i];
-			const foundPlayer = await Player.findByIdAndUpdate(player, {
-				$inc : {
-					atBats     : req.body.atBats[i],
-					runs       : req.body.runs[i],
-					hits       : req.body.hits[i],
-					rbi        : req.body.rbi[i],
-					single     : req.body.single[i],
-					double     : req.body.double[i],
-					triple     : req.body.triple[i],
-					homeRun    : req.body.homeRun[i],
-					strikeouts : req.body.strikeout[i],
-					walks      : req.body.walk[i]
-				}
-			});
-			await foundPlayer.save();
-			await calculateAvg(player);
-			await calculateOBP(player);
-			await calculateOPS(player);
-			await calculateSLG(player);
-			await foundPlayer.save();
+			if (req.body.player[i]) {
+				const player = req.body.player[i];
+				const foundPlayer = await Player.findByIdAndUpdate(player, {
+					$inc : {
+						atBats     : req.body.atBats[i],
+						runs       : req.body.runs[i],
+						hits       : req.body.hits[i],
+						rbi        : req.body.rbi[i],
+						single     : req.body.single[i],
+						double     : req.body.double[i],
+						triple     : req.body.triple[i],
+						homeRun    : req.body.homeRun[i],
+						strikeouts : req.body.strikeout[i],
+						walks      : req.body.walk[i]
+					}
+				});
+				await foundPlayer.save();
+				await calculateAvg(player);
+				await calculateOBP(player);
+				await calculateOPS(player);
+				await calculateSLG(player);
+				await calculateXBH(player);
+				await foundPlayer.save();
+			}
+			else {
+				break;
+			}
 		}
 	} catch (e) {
-		// If form submits data for only onle player, req.body.player is a string
-		const player = await Player.findByIdAndUpdate(req.body.player, {
-			$inc : {
-				atBats     : req.body.atBats,
-				runs       : req.body.runs,
-				hits       : req.body.hits,
-				rbi        : req.body.rbi,
-				single     : req.body.single,
-				double     : req.body.double,
-				triple     : req.body.triple,
-				homeRun    : req.body.homeRun,
-				strikeouts : req.body.strikeout,
-				walks      : req.body.walk
-			}
-		});
-		await player.save();
-		await calculateAvg(player);
-		await calculateOBP(player);
-		await calculateOPS(player);
-		await calculateSLG(player);
-		await player.save();
+		console.log(`${e} at line 133 of app.js`);
 	}
 	const game = new Game(req.body);
 	await game.save();

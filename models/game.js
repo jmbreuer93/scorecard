@@ -4,22 +4,30 @@ const Player = require('./player');
 const Team = require('./team');
 
 const GameSchema = new Schema({
-	homeTeam : {
+	homeTeam  : {
 		type     : Schema.Types.ObjectId,
 		ref      : 'Team',
 		required : true
 	},
-	awayTeam : {
+	awayTeam  : {
 		type     : Schema.Types.ObjectId,
 		ref      : 'Team',
 		required : true
 	},
-	date     : {
+	date      : {
 		type     : Date,
 		required : true
 	},
-	time     : {
+	time      : {
 		type     : String,
+		required : true
+	},
+	homeScore : {
+		type     : Number,
+		required : true
+	},
+	awayScore : {
+		type     : Number,
 		required : true
 	}
 });
