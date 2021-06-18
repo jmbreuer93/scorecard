@@ -19,7 +19,12 @@
         <label for="date">Date</label>
         <input type="date" name="date" id="date">
         <label for="time">Time</label>
-        <input type="time" name="time" id="time">
+        <select name="time" id="time">
+            <option value="">Enter a Time</option>
+            <option value="9:00 AM">9:00 AM</option>
+            <option value="10:20 AM">10:20 AM</option>
+            <option value="11:40 AM">11:40 AM</option>
+        </select>
     </div>
     <% for(let player of players) { %>
         <div>
