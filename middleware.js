@@ -65,7 +65,7 @@ module.exports.teamTotals = async (req, res, next) => {
 	teamTotals.obp = ((teamTotals.hits + teamTotals.walks) / (teamTotals.atBats + teamTotals.walks)).toFixed(3);
 	teamTotals.slg = ((teamTotals.single * 1 + teamTotals.double * 2 + teamTotals.triple * 3 + teamTotals.homeRun * 4) /
 		teamTotals.atBats).toFixed(3);
-	teamTotals.ops = teamTotals.obp + teamTotals.slg;
+	teamTotals.ops = (parseFloat(teamTotals.obp) + parseFloat(teamTotals.slg)).toFixed(3);
 	res.locals.teamTotals = teamTotals;
 	next();
 };
