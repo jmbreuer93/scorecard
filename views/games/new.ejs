@@ -1,5 +1,6 @@
-<h1>New Game for <%= teamName %></h1>
+<% layout('layouts/boilerplate') %>
 
+<h1>New Game for <%= teamName %></h1>
 <form action="/teams/<%= team[0]._id %>/games" method="POST">
     <label for="awayTeam">Visitor</label>
     <select name="awayTeam" id="awayTeam">
