@@ -92,11 +92,12 @@ app.post('/teams/:id/games', async (req, res) => {
 		for (let i = 0; i < numPlayers; i++) {
 			if (req.body.player[i]) {
 				const player = req.body.player[i];
+				const hits = req.body.single[i] + req.body.double[i] + req.body.triple[i] + req.body.homeRun[i];
 				const foundPlayer = await Player.findByIdAndUpdate(player, {
 					$inc : {
 						atBats     : req.body.atBats[i],
 						runs       : req.body.runs[i],
-						hits       : req.body.hits[i],
+						hits       : hits,
 						rbi        : req.body.rbi[i],
 						single     : req.body.single[i],
 						double     : req.body.double[i],

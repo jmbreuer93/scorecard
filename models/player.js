@@ -20,7 +20,12 @@ const PlayerSchema = new Schema({
 	hits               : {
 		type     : Number,
 		required : true,
-		default  : 0
+		default  : function () {
+			if (this.single || this.double || this.triple || this.homeRun) {
+				return this.single + this.double + this.triple + this.homeRun;
+			}
+			return 0;
+		}
 	},
 	rbi                : {
 		type     : Number,
