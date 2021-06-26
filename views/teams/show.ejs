@@ -4,84 +4,96 @@
 <a href="/players/new">Add a Player</a>
 <a href="/teams/<%= team._id %>/games/new">Add a Game</a>
 
-<table>
-    <tr>
-        <th>Date</th>
-        <th>Time</th>
-        <th>Home Team</th>
-        <th>Away Team</th>
-        <th>Score</th>
-    </tr>
-    <% for(i = 0; i < games.length; i++) { %>
-        <tr>
-            <td><%= formattedDates[i] %></td>
-            <td><%= games[i].time %></td>
-            <td><%= homeTeamNames[i] %></td>
-            <td><%= awayTeamNames[i] %></td>
-            <td><%= games[i].homeScore %> - <%= games[i].awayScore %></td>
-        </tr>
-    <% } %>
-</table>
+<div class="table-responsive">
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Time</th>
+                <th scope="col">Home Team</th>
+                <th scope="col">Away Team</th>
+                <th scope="col">Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(i = 0; i < games.length; i++) { %>
+                <tr>
+                    <td><%= formattedDates[i] %></td>
+                    <td><%= games[i].time %></td>
+                    <td><%= homeTeamNames[i] %></td>
+                    <td><%= awayTeamNames[i] %></td>
+                    <td><%= games[i].homeScore %> - <%= games[i].awayScore %></td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+<div class="table-responsive">
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">AVG</th>
+                <th scope="col">OBP</th>
+                <th scope="col">SLG</th>
+                <th scope="col">OPS</th>
+                <th scope="col">AB</th>
+                <th scope="col">R</th>
+                <th scope="col">H</th>
+                <th scope="col">RBI</th>
+                <th scope="col">1B</th>
+                <th scope="col">2B</th>
+                <th scope="col">3B</th>
+                <th scope="col">HR</th>
+                <th scope="col">XBH</th>
+                <th scope="col">K</th>
+                <th scope="col">BB</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (let player of players) { %>
+                <tr>
+                    <td><%= player.firstName %></td>
+                    <td><%= player.lastName %></td>
+                    <td><%= player.battingAverage.toFixed(3) %></td>
+                    <td><%= player.onBasePercentage.toFixed(3) %></td>  
+                    <td><%= player.sluggingPercentage.toFixed(3) %></td>
+                    <td><%= player.ops %></td>
+                    <td><%= player.atBats %></td>
+                    <td><%= player.runs %></td>
+                    <td><%= player.hits %></td>
+                    <td><%= player.rbi %></td>
+                    <td><%= player.single %></td>
+                    <td><%= player.double %></td>
+                    <td><%= player.triple %></td>
+                    <td><%= player.homeRun %></td>
+                    <td><%= player.xbh %></td>
+                    <td><%= player.strikeouts %></td>
+                    <td><%= player.walks %></td>
+                </tr>
+            <% } %>
+            <tr class="table-dark">
+                <td></td>
+                <td><strong>Totals</strong></td>
+                <td><strong><%= teamTotals.avg %></strong></td>
+                <td><strong><%= teamTotals.obp %></strong></td>
+                <td><strong><%= teamTotals.slg %></strong></td>
+                <td><strong><%= teamTotals.ops %></strong></td>
+                <td><strong><%= teamTotals.atBats %></strong></td>
+                <td><strong><%= teamTotals.runs %></strong></td>
+                <td><strong><%= teamTotals.hits %></strong></td>
+                <td><strong><%= teamTotals.rbi %></strong></td>
+                <td><strong><%= teamTotals.single %></strong></td>
+                <td><strong><%= teamTotals.double %></strong></td>
+                <td><strong><%= teamTotals.triple %></strong></td>
+                <td><strong><%= teamTotals.homeRun %></strong></td>
+                <td><strong><%= teamTotals.xbh %></strong></td>
+                <td><strong><%= teamTotals.strikeouts %></strong></td>
+                <td><strong><%= teamTotals.walks %></strong></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
-<table>
-    <tr>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>AVG</th>
-        <th>OBP</th>
-        <th>SLG</th>
-        <th>OPS</th>
-        <th>AB</th>
-        <th>R</th>
-        <th>H</th>
-        <th>RBI</th>
-        <th>1B</th>
-        <th>2B</th>
-        <th>3B</th>
-        <th>HR</th>
-        <th>XBH</th>
-        <th>K</th>
-        <th>BB</th>
-    </tr>
-    <% for (let player of players) { %>
-        <tr>
-            <td><%= player.firstName %></td>
-            <td><%= player.lastName %></td>
-            <td><%= player.battingAverage.toFixed(3) %></td>
-            <td><%= player.onBasePercentage.toFixed(3) %></td>  
-            <td><%= player.sluggingPercentage.toFixed(3) %></td>
-            <td><%= player.ops %></td>
-            <td><%= player.atBats %></td>
-            <td><%= player.runs %></td>
-            <td><%= player.hits %></td>
-            <td><%= player.rbi %></td>
-            <td><%= player.single %></td>
-            <td><%= player.double %></td>
-            <td><%= player.triple %></td>
-            <td><%= player.homeRun %></td>
-            <td><%= player.xbh %></td>
-            <td><%= player.strikeouts %></td>
-            <td><%= player.walks %></td>
-        </tr>
-    <% } %>
-    <tr>
-        <td></td>
-        <td><strong>Totals</strong></td>
-        <td><strong><%= teamTotals.avg %></strong></td>
-        <td><strong><%= teamTotals.obp %></strong></td>
-        <td><strong><%= teamTotals.slg %></strong></td>
-        <td><strong><%= teamTotals.ops %></strong></td>
-        <td><strong><%= teamTotals.atBats %></strong></td>
-        <td><strong><%= teamTotals.runs %></strong></td>
-        <td><strong><%= teamTotals.hits %></strong></td>
-        <td><strong><%= teamTotals.rbi %></strong></td>
-        <td><strong><%= teamTotals.single %></strong></td>
-        <td><strong><%= teamTotals.double %></strong></td>
-        <td><strong><%= teamTotals.triple %></strong></td>
-        <td><strong><%= teamTotals.homeRun %></strong></td>
-        <td><strong><%= teamTotals.xbh %></strong></td>
-        <td><strong><%= teamTotals.strikeouts %></strong></td>
-        <td><strong><%= teamTotals.walks %></strong></td>
-    </tr>
-</table>
 
