@@ -2,39 +2,58 @@
 
 <h1>New Game for <%= teamName %></h1>
 <form action="/teams/<%= team[0]._id %>/games" method="POST">
-    <label for="awayTeam">Visitor</label>
-    <select name="awayTeam" id="awayTeam">
-        <option value="">Select a Team</option>
-        <% for(let team of teams) { %>
-            <option value="<%= team._id %>"><%= team.teamName %></option>
-        <% } %>
-    </select>
     <div>
-        <label for="homeTeam">Home</label>
-        <select name="homeTeam" id="homeTeam">
-            <option value="">Select a Team</option>
-            <% for(let team of teams) { %>
-                <option value="<%= team._id %>"><%= team.teamName %></option>
-            <% } %>
-        </select>
-        <label for="date">Date</label>
-        <input type="date" name="date" id="date">
-        <label for="time">Time</label>
-        <select name="time" id="time">
-            <option value="">Enter a Time</option>
-            <option value="9:00 AM">9:00 AM</option>
-            <option value="10:20 AM">10:20 AM</option>
-            <option value="11:40 AM">11:40 AM</option>
-        </select>
-        <label for="homeScore">Home Team Score</label>
-        <input type="number" name="homeScore" id="homeScore">
-        <label for="awayScore">Away Team Score</label>
-        <input type="number" name="awayScore" id="awayScore">
+        <div class="row mb-3">
+            <label for="awayTeam" class="col-sm-2 col-md-1 col-form-label col-form-label-sm">Visitor</label>
+            <div class="col-sm-10 col-md-5 col-lg-2">
+                <select class="form-select form-select-sm" name="awayTeam" id="awayTeam">
+                    <option value="">Select a Team</option>
+                    <% for(let team of teams) { %>
+                        <option value="<%= team._id %>"><%= team.teamName %></option>
+                    <% } %>
+                </select>
+            </div>
+            <label for="homeTeam" class="col-sm-2 col-md-1 col-form-label col-form-label-sm">Home</label>
+            <div class="col-sm-10 col-md-5 col-lg-2">
+                <select class="form-select form-select-sm" name="homeTeam" id="homeTeam">
+                    <option value="">Select a Team</option>
+                    <% for(let team of teams) { %>
+                        <option value="<%= team._id %>"><%= team.teamName %></option>
+                    <% } %>
+                </select>
+            </div>
+            <label for="date" class="col-sm-2 col-md-1 col-form-label col-form-label-sm">Date</label>
+            <div class="col-sm-10 col-md-5 col-lg-2">
+                <input class="form-control" type="date" name="date" id="date">
+            </div>
+            <label for="time" class="col-sm-2 col-md-1 col-form-label col-form-label-sm">Time</label>
+            <div class="col-sm-10 col-md-5 col-lg-2">
+                <select class="form-select form-select-sm" name="time" id="time">
+                    <option value="">Enter a Time</option>
+                    <option value="9:00 AM">9:00 AM</option>
+                    <option value="10:20 AM">10:20 AM</option>
+                    <option value="11:40 AM">11:40 AM</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="homeScore" class="col-sm-2 col-form-label col-form-label-sm">Home Team Score</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="number" name="homeScore" id="homeScore">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="awayScore" class="col-sm-2 col-form-label col-form-label-sm">Away Team Score</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="number" name="awayScore" id="awayScore">
+            </div>
+        </div>
     </div>
+   
     <% for(let player of players) { %>
         <div>
             <label for="player">Player</label>
-            <select name="player" id="player">
+            <select class="form-select form-select-sm" name="player" id="player">
                 <option value="">Choose an Player</option>
                 <% for(let player of players) { %>
                     <option value="<%= player._id %>"><%= player.firstName %> <%= player.lastName%></option>
