@@ -85,14 +85,12 @@ app.get('/teams/:id/games/new', getTeams, async (req, res) => {
 });
 
 app.post('/teams/:id/games', async (req, res) => {
-	console.log(req.body);
 	try {
-		// If form submits data for more than one player, req.body.player is an array
 		const numPlayers = req.body.player.length;
 		for (let i = 0; i < numPlayers; i++) {
 			if (req.body.player[i]) {
 				const player = req.body.player[i];
-				const hits = req.body.single[i] + req.body.double[i] + req.body.triple[i] + req.body.homeRun[i];
+				const hits = parseInt(req.body.single[i]) + parseInt(req.body.double[i]) + parseInt(req.body.triple[i]) + parseInt(req.body.homeRun[i]);
 				const foundPlayer = await Player.findByIdAndUpdate(player, {
 					$inc : {
 						atBats     : req.body.atBats[i],
